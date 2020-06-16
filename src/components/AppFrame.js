@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AppHeader from "./AppHeader";
-//Primeros componentes de la aplicación
+//Primeros componentes de la aplicación, titulo:
 const AppFrame = ({ header, body }) => {
   return (
     <div>
