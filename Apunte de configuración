@@ -1,0 +1,9 @@
+  
+  Presionar control y P:
+  y en preferencias Open settings.json  para que emmet funcione: Las abreviaturas de html, 
+  poder hacer el codigo mas rápido.
+  Añadir en la configuración:
+  
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
