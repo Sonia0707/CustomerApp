@@ -2,6 +2,7 @@ import React, { Component } from "react";
 //Quitamos el link y metemos el Route:
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+import HomeContainer from "./components/HomeContainer";
 
 class App extends Component {
   renderHome = () => <h1>Home</h1>;
@@ -20,7 +21,7 @@ class App extends Component {
       //borrando la palabra exact. Pero vamos a dejar las 2 formas para que se vea que se puede hacer de 2 maneras distintas:
       <Router>
         <div className="App">
-          <Route exact path="/" component={this.renderHome} />
+          <Route exact path="/" component={HomeContainer} />
           <Route
             exact
             path="/customers"
