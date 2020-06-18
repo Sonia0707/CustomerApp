@@ -25,13 +25,18 @@ const customers = [
 ];
 
 class CustomersContainer extends Component {
+  //Navegación con la funcion handleAddNew a un nuevo cliente, gracias ha withRouter de nuevo.
+  handleAddNew = () => {
+    this.props.history.push("/customers/new");
+  };
+
   renderBody = (customers) => (
     // En esa función llamamos al CustomersList donde le pasamos la lista de clientes
     //como parametro y como segundo parametro le pasamos el urlPath.
     // Tambien le pasamos CustomerActions para crear los botones, y creamos el boton para generar un cliente nuevo
     //Crearemos una función handleAddNew que va a ser la encargada de estar escuchando el boton y de esa maner poder agregar un nuevo cliente
     <div>
-      <CustomerList customers={customers} urlPath={"customer/"}></CustomerList>
+      <CustomerList customers={customers} urlPath={"customers/"}></CustomerList>
       <CustomersActions>
         <button onClick={this.handleAddNew}>Nuevo Cliente</button>
       </CustomersActions>
