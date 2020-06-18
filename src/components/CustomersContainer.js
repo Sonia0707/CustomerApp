@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+//Conectar accion mediante el connect al componente:
+import { connect } from "react-redux";
 import AppFrame from "./../components/AppFrame";
 import CustomerList from "./../components/CustomerList";
 import CustomersActions from "./CustomersActions";
+//Accion:
+import { fetchCustomers } from "../actions/fetchCustomers";
 
 //Clientes de prueba, luego cambiaremos y haremos la petición al servidor, por lo tanto no necesitaremos esta constante:
 const customers = [
@@ -25,6 +29,10 @@ const customers = [
 ];
 
 class CustomersContainer extends Component {
+  componentDidMount() {
+    this.props.fetchCustomers();
+  }
+
   //Navegación con la funcion handleAddNew a un nuevo cliente, gracias ha withRouter de nuevo.
   handleAddNew = () => {
     this.props.history.push("/customers/new");
@@ -57,9 +65,14 @@ class CustomersContainer extends Component {
   }
 }
 
-CustomersContainer.propTypes = {};
-
-//Función withRouter recibe como parametro nuestro componente y retorna otro componente decorado, es decir que le agrega funcionalidad
-//Agregandole las propiedades de => history, location, math
-//Por lo tanto una forma de que funcione siempre independientemente de como llamemos al componente es utilizando esta función:
-export default withRouter(CustomersContainer);
+CustomersContainer.propTypes = {
+  fetchCustomers: PropTypes.func.isRequired,
+};
+//Recojo accion: (funcion mapeada) => (Ejecuto mi acctionCreator)
+const mapDispatchToProps = (dipacht) => ({
+  fetchCustomers: () => dipacht(fetchCustomers()),
+});
+//Le paso la accion al connect sobre el CustomersContainer para cotrolar el estado:
+export default withRouter(
+  connect(null, mapDispatchToProps)(CustomersContainer)
+);
