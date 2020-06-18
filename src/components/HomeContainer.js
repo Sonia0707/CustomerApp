@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 //Quitamos el Link que ya no lo estabamos usando y metemos el withRouter
 import { withRouter } from "react-router-dom";
 import AppFrame from "./../components/AppFrame";
@@ -36,8 +35,6 @@ class HomeContainer extends Component {
     );
   }
 }
-
-HomeContainer.propTypes = {};
 
 //Función withRouter recibe como parametro nuestro componente y retorna otro componente decorado, es decir que le agrega funcionalidad
 //Agregandole las propiedades de => history, location, math
