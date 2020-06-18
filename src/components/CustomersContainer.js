@@ -29,6 +29,7 @@ const customers = [
 ];
 
 class CustomersContainer extends Component {
+  //Lanzamos la accion desde el componente:
   componentDidMount() {
     this.props.fetchCustomers();
   }
