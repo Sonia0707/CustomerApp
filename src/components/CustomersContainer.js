@@ -69,11 +69,9 @@ class CustomersContainer extends Component {
 CustomersContainer.propTypes = {
   fetchCustomers: PropTypes.func.isRequired,
 };
-//Recojo accion: (funcion mapeada) => (Ejecuto mi acctionCreator)
-const mapDispatchToProps = (dipacht) => ({
-  fetchCustomers: () => dipacht(fetchCustomers()),
-});
+//Aqui teniamos una función llamada mapDispatchToProps() pero lo hemos simplificado
+//gracias a redux-action:
 //Le paso la accion al connect sobre el CustomersContainer para cotrolar el estado:
 export default withRouter(
-  connect(null, mapDispatchToProps)(CustomersContainer)
+  connect(null, { fetchCustomers })(CustomersContainer)
 );
