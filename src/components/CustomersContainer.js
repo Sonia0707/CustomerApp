@@ -56,27 +56,18 @@ CustomersContainer.propTypes = {
 
 //Valores por defecto, de la lista de clientes:
 CustomersContainer.defaultProps = {
-  customers: [
-    {
-      dni: "71462879q",
-      name: "Sonia Vidal",
-      age: 28,
-    },
-    {
-      dni: "78953647w",
-      name: "Jose Gonzalez",
-      age: 37,
-    },
-    {
-      dni: "09876543e",
-      name: "Luis Martinez",
-      age: 25,
-    },
-  ],
+  customers: [],
 };
+
+//Para vincular nuestro CustomersContainers con los datos que tiene el state crearemos nuestra función (mapStateToProps):
+const mapStateToProps = (state) => ({
+  customers: state.customers,
+});
+
 //Aqui teniamos una función llamada mapDispatchToProps() pero lo hemos simplificado
 //gracias a redux-action:
 //Le paso la accion al connect sobre el CustomersContainer para cotrolar el estado:
+//Le pasamos los datos de los clientes al CustomersContainers con el mapStateToProps
 export default withRouter(
-  connect(null, { fetchCustomers })(CustomersContainer)
+  connect(mapStateToProps, { fetchCustomers })(CustomersContainer)
 );
