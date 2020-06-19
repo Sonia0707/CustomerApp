@@ -8,6 +8,8 @@ import CustomerList from "./../components/CustomerList";
 import CustomersActions from "./CustomersActions";
 //Accion:
 import { fetchCustomers } from "../actions/fetchCustomers";
+//Importamos el selector:
+import { getCustomers } from "../selectors/customers";
 
 class CustomersContainer extends Component {
   //Lanzamos la accion desde el componente:
@@ -60,8 +62,9 @@ CustomersContainer.defaultProps = {
 };
 
 //Para vincular nuestro CustomersContainers con los datos que tiene el state crearemos nuestra función (mapStateToProps):
+//Aplicamos el selector del estado:
 const mapStateToProps = (state) => ({
-  customers: state.customers,
+  customers: getCustomers(state),
 });
 
 //Aqui teniamos una función llamada mapDispatchToProps() pero lo hemos simplificado
