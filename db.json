@@ -1,0 +1,37 @@
+{
+  "customers": [
+    {
+      "dni": "71462879q",
+      "name": "Sonia Vidal",
+      "age": 28
+    },
+    {
+      "dni": "78953647w",
+      "name": "Jose Gonzalez",
+      "age": 37
+    },
+    {
+      "dni": "09876543e",
+      "name": "Luis Martinez",
+      "age": 25
+    }
+  ],
+
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
