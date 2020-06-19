@@ -9,25 +9,6 @@ import CustomersActions from "./CustomersActions";
 //Accion:
 import { fetchCustomers } from "../actions/fetchCustomers";
 
-//Clientes de prueba, luego cambiaremos y haremos la petición al servidor, por lo tanto no necesitaremos esta constante:
-const customers = [
-  {
-    dni: "71462879q",
-    name: "Sonia Vidal",
-    age: 28,
-  },
-  {
-    dni: "78953647w",
-    name: "Jose Perez",
-    age: 37,
-  },
-  {
-    dni: "09876543e",
-    name: "Luis Martinez",
-    age: 25,
-  },
-];
-
 class CustomersContainer extends Component {
   //Lanzamos la accion desde el componente:
   componentDidMount() {
@@ -57,17 +38,41 @@ class CustomersContainer extends Component {
     //de momento para ver el resultado.
     return (
       <div>
+        {/*Cambia el customer para cogerlo desde props */}
         <AppFrame
           header={"Listado de clientes"}
-          body={this.renderBody(customers)}
+          body={this.renderBody(this.props.customers)}
         ></AppFrame>
       </div>
     );
   }
 }
 
+//customers ahora es requerida:
 CustomersContainer.propTypes = {
   fetchCustomers: PropTypes.func.isRequired,
+  customers: PropTypes.array.isRequired,
+};
+
+//Valores por defecto, de la lista de clientes:
+CustomersContainer.defaultProps = {
+  customers: [
+    {
+      dni: "71462879q",
+      name: "Sonia Vidal",
+      age: 28,
+    },
+    {
+      dni: "78953647w",
+      name: "Jose Gonzalez",
+      age: 37,
+    },
+    {
+      dni: "09876543e",
+      name: "Luis Martinez",
+      age: 25,
+    },
+  ],
 };
 //Aqui teniamos una función llamada mapDispatchToProps() pero lo hemos simplificado
 //gracias a redux-action:
