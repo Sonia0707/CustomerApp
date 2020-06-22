@@ -11,7 +11,7 @@ class CustomerContainer extends Component {
         {/*Le pasamos el DNI desde App.js */}
         <AppFrame
           header={`Cliente ${this.props.dni}`}
-          body={<p>Datos del cliente</p>}
+          body={<p>Datos del cliente "{this.props.customer.name}"</p>}
         ></AppFrame>
       </div>
     );
@@ -21,7 +21,12 @@ class CustomerContainer extends Component {
 //Ponemos como requerido el dni:
 CustomerContainer.propTypes = {
   dni: PropTypes.string.isRequired,
+  customer: PropTypes.object.isRequired,
 };
+//Creamos la funcion para pasarle todas las props de los cliente no solo el dni:(props) => todas las propiedades(pronto cambiaremos la forma X un selector)
+const mapStateToProps = (state, props) => ({
+  customer: state.customers.find((c) => c.dni === props.dni),
+});
 
 //Mas adelante cambiaremos lo de null:
-export default withRouter(connect(null, null)(CustomerContainer));
+export default withRouter(connect(mapStateToProps, null)(CustomerContainer));
