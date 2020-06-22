@@ -3,9 +3,9 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 //Conectar accion mediante el connect al componente:
 import { connect } from "react-redux";
-import AppFrame from "./../components/AppFrame";
-import CustomerList from "./../components/CustomerList";
-import CustomersActions from "./CustomersActions";
+import AppFrame from "../components/AppFrame";
+import CustomerList from "../components/CustomerList";
+import CustomersActions from "../components/CustomersActions";
 //Accion:
 import { fetchCustomers } from "../actions/fetchCustomers";
 //Importamos el selector:
