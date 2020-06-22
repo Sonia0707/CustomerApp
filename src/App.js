@@ -32,7 +32,16 @@ class App extends Component {
               path="/customers/new"
               component={this.renderCustomerNewContainer}
             />
-            <Route path="/customers/:dni" component={CustomerContainer} />
+            {/*Cambiamos la forma de llamar al componente con el render 
+          y le pasamos la propiedad: dni que la cogemos del servidor:
+         props.match.params.dni*/}
+
+            <Route
+              path="/customers/:dni"
+              render={(props) => (
+                <CustomerContainer dni={props.match.params.dni} />
+              )}
+            />
           </Switch>
         </div>
       </Router>
