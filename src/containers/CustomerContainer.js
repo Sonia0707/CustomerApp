@@ -8,12 +8,20 @@ class CustomerContainer extends Component {
   render() {
     return (
       <div>
-        <AppFrame header={`Cliente`} body={<p>Datos del cliente</p>}></AppFrame>
+        {/*Le pasamos el DNI desde App.js */}
+        <AppFrame
+          header={`Cliente ${this.props.dni}`}
+          body={<p>Datos del cliente</p>}
+        ></AppFrame>
       </div>
     );
   }
 }
 
-CustomerContainer.propTypes = {};
+//Ponemos como requerido el dni:
+CustomerContainer.propTypes = {
+  dni: PropTypes.string.isRequired,
+};
 
+//Mas adelante cambiaremos lo de null:
 export default withRouter(connect(null, null)(CustomerContainer));
