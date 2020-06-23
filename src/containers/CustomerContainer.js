@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import AppFrame from "../components/AppFrame";
 import { withRouter } from "react-router-dom";
+import { getCustomersByDni } from "../selectors/customers";
 
 class CustomerContainer extends Component {
   render() {
@@ -25,7 +26,7 @@ CustomerContainer.propTypes = {
 };
 //Creamos la funcion para pasarle todas las props de los cliente no solo el dni:(props) => todas las propiedades(pronto cambiaremos la forma X un selector)
 const mapStateToProps = (state, props) => ({
-  customer: state.customers.find((c) => c.dni === props.dni),
+  customer: getCustomersByDni(state, props),
 });
 
 //Mas adelante cambiaremos lo de null:
