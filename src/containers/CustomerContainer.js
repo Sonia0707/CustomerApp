@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import AppFrame from "../components/AppFrame";
+import CustomerEdit from "../components/CustomerEdit";
+import CustomerData from "../components/CustomerData";
+
 import { withRouter, Route } from "react-router-dom";
 import { getCustomersByDni } from "../selectors/customers";
 
@@ -11,9 +14,14 @@ class CustomerContainer extends Component {
   renderBody = () => (
     <Route
       path="/customers/:dni/edit"
-      children={({ match }) =>
-        match ? <p>Es edition</p> : <p>No es edition</p>
-      }
+      children={({ match }) => {
+        //Depende cual cliquemos: (CustomerControl)= Alias...
+        const CustomerControl = match ? CustomerEdit : CustomerData;
+
+        //Cogemos todas las propiedades de los clientes haciendo un destrugturing (Spread Attributes) el como poner age={edad}, dni={dni}, name={name}
+        //Retormanamos un componente determinado que nos devuelve data o edit para no andar repitiendo las propiedades de nuevo (DRY)
+        return <CustomerControl {...this.props.customer} />;
+      }}
     />
   );
   //<p>Datos del cliente "{this.props.customer.name}"</p>
