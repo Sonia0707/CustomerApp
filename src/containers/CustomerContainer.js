@@ -20,9 +20,7 @@ class CustomerContainer extends Component {
 
         //Cogemos todas las propiedades de los clientes haciendo un destrugturing (Spread Attributes) el como poner age={edad}, dni={dni}, name={name}
         //Retormanamos un componente determinado que nos devuelve data o edit para no andar repitiendo las propiedades de nuevo (DRY)
-
-        //Cambiamos poniendo la propiedad de initialValues del redux-form para pasarle al edit los datos por defecto:(name,age,dni) tienen que ser los mismos
-        return <CustomerControl initialValues={this.props.customer} />;
+        return <CustomerControl {...this.props.customer} />;
       }}
     />
   );
