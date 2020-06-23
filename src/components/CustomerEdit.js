@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 //El Field es para generar diferentes acciones de forma automatica:
 import { reduxForm, Field } from "redux-form";
+import { connect } from "react-redux";
 
 const CustomerEdit = ({ name, dni, age }) => {
   return (
@@ -33,4 +34,12 @@ CustomerEdit.propTypes = {
 //Decorando el componente CustomerEdit con un hihgt order component que nos provee la librería redux-form
 //Como parametro le estamos pasando un objet que tiene como clave: form: 'CustomerEdit' el nombre es arbitrario pero
 //tiene que mantener el nombre ya en todo momento una vez puesto:
-export default reduxForm({ form: "CustomerEdit" })(CustomerEdit);
+
+//En este paso creamos una función con el decorado para hacerlo mas sencillo y pasarselo al connect:
+const CustomersEditForm = reduxForm({ form: "CustomerEdit" })(CustomerEdit);
+
+//Exportamos el connect, primera propiedad le pasamos el estado y las props con initialValues:
+// ((solucionar lo del component para que no parezca un componente conectado)):
+export default connect((state, props) => ({ initialValues: props }))(
+  CustomersEditForm
+);
