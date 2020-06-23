@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+//El Field es para generar diferentes acciones:
+import { reduxForm, Field } from "redux-form";
 
 const CustomerEdit = ({ name, dni, age }) => {
   return (
@@ -17,5 +19,7 @@ CustomerEdit.propTypes = {
   dni: PropTypes.string,
   age: PropTypes.number,
 };
-
-export default CustomerEdit;
+//Decorando el componente CustomerEdit con un hihgt order component que nos provee la librería redux-form
+//Como parametro le estamos pasando un objet que tiene como clave: form: 'CustomerEdit' el nombre es arbitrario pero
+//tiene que mantener el nombre ya en todo momento una vez puesto:
+export default reduxForm({ form: "CustomerEdit" })(CustomerEdit);
