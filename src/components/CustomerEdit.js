@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 //El Field es para generar diferentes acciones de forma automatica:
 import { reduxForm, Field } from "redux-form";
-import { connect } from "react-redux";
+import { setPropsAsInitial } from "./../helpers/setPropsAsInitial";
 
 const CustomerEdit = ({ name, dni, age }) => {
   return (
@@ -31,15 +31,12 @@ CustomerEdit.propTypes = {
   dni: PropTypes.string,
   age: PropTypes.number,
 };
-//Decorando el componente CustomerEdit con un hihgt order component que nos provee la librería redux-form
+//Decorando el componente CustomerEdit con un Higher Order Component que nos provee la librería redux-form
 //Como parametro le estamos pasando un objet que tiene como clave: form: 'CustomerEdit' el nombre es arbitrario pero
 //tiene que mantener el nombre ya en todo momento una vez puesto:
 
-//En este paso creamos una función con el decorado para hacerlo mas sencillo y pasarselo al connect:
+//En este paso creamos una función con el decorado para hacerlo mas sencillo y pasarselo al Higher Order Component:
 const CustomersEditForm = reduxForm({ form: "CustomerEdit" })(CustomerEdit);
 
-//Exportamos el connect, primera propiedad le pasamos el estado y las props con initialValues:
-// ((solucionar lo del component para que no parezca un componente conectado)):
-export default connect((state, props) => ({ initialValues: props }))(
-  CustomersEditForm
-);
+//Borramos el connect y utilizamos nuestro Higher Order Component (decoreitor) que establece las propiedades iniciales:
+export default setPropsAsInitial(CustomersEditForm);
