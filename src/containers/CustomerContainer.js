@@ -22,7 +22,7 @@ class CustomerContainer extends Component {
   handleSubmit = (values) => {
     console.log(JSON.stringify(values));
     const { id } = values;
-    this.props.updateCustomers(id, values);
+    return this.props.updateCustomers(id, values);
   };
   handleOnBack = () => {
     this.props.history.goBack();
