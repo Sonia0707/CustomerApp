@@ -40,7 +40,7 @@ const validate = (values) => {
   return error;
 };
 //Añadimos 2 funciones para el boton de aceptar que se las pasara el CustomerContainer.js:
-const CustomerEdit = ({ name, dni, age, handleSubmit, submitting }) => {
+const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
   return (
     //Le pasamos al form la acción por defecto reservada en redux-form handleSubmit
     <div>
@@ -68,6 +68,7 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting }) => {
           <button type="submit" disabled={submitting}>
             Aceptar
           </button>
+          <button onClick={onBack}>Cancelar</button>
         </CustomersActions>
       </form>
     </div>
@@ -78,6 +79,7 @@ CustomerEdit.propTypes = {
   name: PropTypes.string,
   dni: PropTypes.string,
   age: PropTypes.number,
+  onBack: PropTypes.func.isRequired,
 };
 //Decorando el componente CustomerEdit con un Higher Order Component que nos provee la librería redux-form
 //Como parametro le estamos pasando un objet que tiene como clave: form: 'CustomerEdit' el nombre es arbitrario pero

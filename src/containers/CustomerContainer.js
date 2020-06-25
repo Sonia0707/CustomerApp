@@ -13,6 +13,9 @@ class CustomerContainer extends Component {
   handleSubmit = (values) => {
     console.log(JSON.stringify(values));
   };
+  handleOnBack = () => {
+    this.props.history.goBack();
+  };
 
   //Ejemplo de Route cambiamos el pinchar en Edition
   //Utilizamos propiedad children que se puede usar de maneras diferentes, su especialidad es mas en las animaciones:
@@ -30,6 +33,7 @@ class CustomerContainer extends Component {
           <CustomerControl
             {...this.props.customer}
             onSubmit={this.handleSubmit}
+            onBack={this.handleOnBack}
           />
         );
       }}
