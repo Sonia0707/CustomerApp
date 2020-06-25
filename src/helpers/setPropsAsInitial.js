@@ -7,6 +7,12 @@ export const setPropsAsInitial = (WrappedComponent) =>
     render() {
       //Cogemos las propiedades que nos pasarón del componente llamador CustomerData por destructuring(pasa manos de todas las propiedades que vengan)
       //Y initialValues ya le pasamos la propiedad en especifico, que sera customers
-      return <WrappedComponent {...this.props} initialValues={this.props} />;
+      return (
+        <WrappedComponent
+          {...this.props}
+          initialValues={this.props}
+          enableReinitialize
+        />
+      );
     }
   };
