@@ -1,22 +1,24 @@
 {
   "customers": [
     {
+      "id": "71462879q",
       "dni": "71462879q",
-      "name": "Sonia Vidal",
+      "name": "Sonia ",
       "age": 28
     },
     {
+      "id": "78953647w",
       "dni": "78953647w",
       "name": "Jose Gonzalez",
       "age": 37
     },
     {
+      "id": "09876543e",
       "dni": "09876543e",
       "name": "Luis Martinez",
       "age": 25
     }
   ],
-
   "posts": [
     {
       "id": 1,
