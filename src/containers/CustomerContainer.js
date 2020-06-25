@@ -9,6 +9,11 @@ import { withRouter, Route } from "react-router-dom";
 import { getCustomersByDni } from "../selectors/customers";
 
 class CustomerContainer extends Component {
+  //Creamos la función para pasarsela a CustomerEdit y poder modificar los datos:
+  handleSubmit = (values) => {
+    console.log(JSON.stringify(values));
+  };
+
   //Ejemplo de Route cambiamos el pinchar en Edition
   //Utilizamos propiedad children que se puede usar de maneras diferentes, su especialidad es mas en las animaciones:
   renderBody = () => (
@@ -20,7 +25,13 @@ class CustomerContainer extends Component {
 
         //Cogemos todas las propiedades de los clientes haciendo un destrugturing (Spread Attributes) el como poner age={edad}, dni={dni}, name={name}
         //Retormanamos un componente determinado que nos devuelve data o edit para no andar repitiendo las propiedades de nuevo (DRY)
-        return <CustomerControl {...this.props.customer} />;
+        return (
+          //Añadimos la función y depende si es data o edit:
+          <CustomerControl
+            {...this.props.customer}
+            onSubmit={this.handleSubmit}
+          />
+        );
       }}
     />
   );

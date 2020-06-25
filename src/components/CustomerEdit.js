@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 //El Field es para generar diferentes acciones de forma automatica:
 import { reduxForm, Field } from "redux-form";
 import { setPropsAsInitial } from "./../helpers/setPropsAsInitial";
+import CustomersActions from "./CustomersActions";
 
 //Funcion con unico parametro, en base a ese resultado retornamos un único resultado: VAMOS A CREAR VALIDACIONES A NIVEL DE FIELD:
 //const isRequired = (value) => !value && "Este campo es requerido";
@@ -38,11 +39,13 @@ const validate = (values) => {
   }
   return error;
 };
-const CustomerEdit = ({ name, dni, age }) => {
+//Añadimos 2 funciones para el boton de aceptar que se las pasara el CustomerContainer.js:
+const CustomerEdit = ({ name, dni, age, handleSubmit, submitting }) => {
   return (
+    //Le pasamos al form la acción por defecto reservada en redux-form handleSubmit
     <div>
       <h2>Edición del cliente</h2>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <Field
           name="name"
           component={MyField}
@@ -58,6 +61,14 @@ const CustomerEdit = ({ name, dni, age }) => {
           validate={isNumber}
           label="Edad:"
         ></Field>
+        {/*LLamamos al CustomersActions resevado para los botones
+        Le pasamos el submit de los datos del JSON con la función submitting
+        tambien reservada en redux-form para esto */}
+        <CustomersActions>
+          <button type="submit" disabled={submitting}>
+            Aceptar
+          </button>
+        </CustomersActions>
       </form>
     </div>
   );
