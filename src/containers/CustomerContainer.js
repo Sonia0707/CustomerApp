@@ -7,8 +7,16 @@ import CustomerData from "../components/CustomerData";
 
 import { withRouter, Route } from "react-router-dom";
 import { getCustomersByDni } from "../selectors/customers";
+import { fetchCustomers } from "./../actions/fetchCustomers";
 
 class CustomerContainer extends Component {
+  //Carga inicial de los datos: Validación para que no me aparezcan vacios los campos:
+  componentDidMount() {
+    if (!this.props.customer) {
+      this.props.fetchCustomers();
+    }
+  }
+
   //Creamos la función para pasarsela a CustomerEdit y poder modificar los datos:
   handleSubmit = (values) => {
     console.log(JSON.stringify(values));
@@ -56,7 +64,8 @@ class CustomerContainer extends Component {
 //Ponemos como requerido el dni:
 CustomerContainer.propTypes = {
   dni: PropTypes.string.isRequired,
-  customer: PropTypes.object.isRequired,
+  customer: PropTypes.object,
+  fetchCustomers: PropTypes.func.isRequired,
 };
 //Creamos la funcion para pasarle todas las props de los cliente no solo el dni:(props) => todas las propiedades(pronto cambiaremos la forma X un selector)
 const mapStateToProps = (state, props) => ({
@@ -64,4 +73,8 @@ const mapStateToProps = (state, props) => ({
 });
 
 //Mas adelante cambiaremos lo de null:
-export default withRouter(connect(mapStateToProps, null)(CustomerContainer));
+export default withRouter(
+  connect(mapStateToProps, {
+    fetchCustomers,
+  })(CustomerContainer)
+);
