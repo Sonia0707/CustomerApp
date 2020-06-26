@@ -39,6 +39,7 @@ const validate = (values) => {
   }
   return error;
 };
+
 //Funciones que controlan "parse()" y "format()":
 //1º La primera controla que sea un numero lo que escribimos y nada mas, para que se guarde eso.
 const toNumber = (value) => value && Number(value);
@@ -47,6 +48,11 @@ const toUpper = (value) => value && value.toUpperCase();
 //3º Es compatible con la segunda, es decir cuando vamos a guardar automaticamente todo se graba en minuscula,
 //pero una vez se graba y se guarda el resultado es en mayusculas.
 const toLower = (value) => value && value.toLowerCase();
+//4º Ultima función normalize() => Esta función recoge los valores que hay y examina si no estan vacios = el valor tiene que ser mayor al valor que
+//ya esta ingresado si no se quedara con el mismo valor:
+const onlyGrow = (value, previousValue, values) =>
+  value && previousValue && (value > previousValue ? value : previousValue);
+
 //Añadimos 2 funciones para el boton de aceptar que se las pasara el CustomerContainer.js:
 const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
   return (
@@ -71,6 +77,7 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
           validate={isNumber}
           label="Edad:"
           parse={toNumber}
+          normalize={onlyGrow}
         ></Field>
         {/*LLamamos al CustomersActions resevado para los botones
         Le pasamos el submit de los datos del JSON con la función submitting
