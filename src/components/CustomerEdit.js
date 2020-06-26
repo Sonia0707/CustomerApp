@@ -39,6 +39,14 @@ const validate = (values) => {
   }
   return error;
 };
+//Funciones que controlan "parse()" y "format()":
+//1º La primera controla que sea un numero lo que escribimos y nada mas, para que se guarde eso.
+const toNumber = (value) => value && Number(value);
+//2º La segunda que sea en mayusculas el campo, da igual que escribamos lo convertira en mayusculas.
+const toUpper = (value) => value && value.toUpperCase();
+//3º Es compatible con la segunda, es decir cuando vamos a guardar automaticamente todo se graba en minuscula,
+//pero una vez se graba y se guarda el resultado es en mayusculas.
+const toLower = (value) => value && value.toLowerCase();
 //Añadimos 2 funciones para el boton de aceptar que se las pasara el CustomerContainer.js:
 const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
   return (
@@ -51,6 +59,8 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
           component={MyField}
           type="text"
           label="Nombre:"
+          parse={toUpper}
+          format={toLower}
         ></Field>
 
         <Field name="dni" component={MyField} type="text" label="DNI:"></Field>
@@ -60,6 +70,7 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
           type="number"
           validate={isNumber}
           label="Edad:"
+          parse={toNumber}
         ></Field>
         {/*LLamamos al CustomersActions resevado para los botones
         Le pasamos el submit de los datos del JSON con la función submitting
