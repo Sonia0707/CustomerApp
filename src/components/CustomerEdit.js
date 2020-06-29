@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { reduxForm, Field } from "redux-form";
 import { setPropsAsInitial } from "./../helpers/setPropsAsInitial";
 import CustomersActions from "./CustomersActions";
+import { Prompt } from "react-router-dom";
 
 //Funcion con unico parametro, en base a ese resultado retornamos un único resultado: VAMOS A CREAR VALIDACIONES A NIVEL DE FIELD:
 //const isRequired = (value) => !value && "Este campo es requerido";
@@ -54,7 +55,16 @@ const onlyGrow = (value, previousValue, values) =>
   value && previousValue && (value > previousValue ? value : previousValue);
 
 //Añadimos 2 funciones para el boton de aceptar que se las pasara el CustomerContainer.js:
-const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
+const CustomerEdit = ({
+  name,
+  dni,
+  age,
+  handleSubmit,
+  submitting,
+  onBack,
+  pristine,
+  submitSucceeded,
+}) => {
   return (
     //Le pasamos al form la acción por defecto reservada en redux-form handleSubmit
     <div>
@@ -83,11 +93,21 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
         Le pasamos el submit de los datos del JSON con la función submitting
         tambien reservada en redux-form para esto */}
         <CustomersActions>
-          <button type="submit" disabled={submitting}>
+          {/**Desabilitamos el botón si no se ha realizado ningun cambio */}
+          <button type="submit" disabled={pristine || submitting}>
             Aceptar
           </button>
-          <button onClick={onBack}>Cancelar</button>
+          <button type="button" disabled={submitting} onClick={onBack}>
+            Cancelar
+          </button>
         </CustomersActions>
+        {/**VALIDACION DEL BOTON CANCELAR: Utilización del componente Prompt que es parte de react-router-dom,
+         *  dentro de el la utilización del booleano (pristine) que es parte de redux-form.
+         * message= Mensaje de alerta que se mandará al darle a cancelar:  */}
+        <Prompt
+          when={!pristine && !submitSucceeded}
+          message="Se perderán los datos si continua"
+        ></Prompt>
       </form>
     </div>
   );
