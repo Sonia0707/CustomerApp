@@ -2,3 +2,5 @@
 export const FETCH_CUSTOMERS = "FETCH_CUSTOMERS";
 //Creamos constante para poder hacer los cambios del JSON:
 export const UPDATE_CUSTOMER = "UPDATE_CUSTOMER";
+
+export const INSERT_CUSTOMER = "INSERT_CUSTOMER";
