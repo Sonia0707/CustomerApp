@@ -1,6 +1,6 @@
 //Es una utilidad que me permite manejar los reducers:
 import { handleActions } from "redux-actions"; //esto nos lo ofrece solo redux-actions
-import { FETCH_CUSTOMERS } from "../constantes";
+import { FETCH_CUSTOMERS, INSERT_CUSTOMER } from "../constantes";
 
 //Generar constante que se iguala al resultado de  handleActions
 //Que esta esperando un objeto, y este objeto va estar compuesto de las distintas constantes como claves, de este diccionario
@@ -9,6 +9,7 @@ import { FETCH_CUSTOMERS } from "../constantes";
 export const customers = handleActions(
   {
     [FETCH_CUSTOMERS]: (state, action) => [...action.payload],
+    [INSERT_CUSTOMER]: (state, action) => [...state, action.payload],
   },
   []
 );
