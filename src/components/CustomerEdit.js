@@ -52,7 +52,8 @@ const toLower = (value) => value && value.toLowerCase();
 //4º Ultima función normalize() => Esta función recoge los valores que hay y examina si no estan vacios = el valor tiene que ser mayor al valor que
 //ya esta ingresado si no se quedara con el mismo valor:
 const onlyGrow = (value, previousValue, values) =>
-  value && previousValue && (value > previousValue ? value : previousValue);
+  value &&
+  (!previousValue ? value : value > previousValue ? value : previousValue);
 
 //Añadimos 2 funciones para el boton de aceptar que se las pasara el CustomerContainer.js:
 const CustomerEdit = ({
