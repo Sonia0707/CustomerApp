@@ -4,11 +4,24 @@ import AppFrame from "./../components/AppFrame";
 import CustomerEdit from "../components/CustomerEdit";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { insertCustomer } from "./../actions/insertCustomer";
+import { SubmissionError } from "redux-form";
 
 class NewCustomerContainer extends Component {
-  handleSubmit = () => {};
+  handleSubmit = (values) => {
+    return this.props
+      .insertCustomer(values)
+      .then((v) => v)
+      .catch((err) => {
+        if (err.error) {
+          throw new SubmissionError(err.payload);
+        }
+      });
+  };
 
-  handleSubmitSuccess = (values) => {};
+  handleSubmitSuccess = () => {
+    this.props.history.goBack();
+  };
 
   handleOnBack = () => {
     this.props.history.goBack();
@@ -41,6 +54,10 @@ class NewCustomerContainer extends Component {
   }
 }
 
-NewCustomerContainer.propTypes = {};
+NewCustomerContainer.propTypes = {
+  insertCustomer: PropTypes.func.isRequired,
+};
 
-export default withRouter(connect(null, null)(NewCustomerContainer));
+export default withRouter(
+  connect(null, { insertCustomer })(NewCustomerContainer)
+);
