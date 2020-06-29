@@ -21,3 +21,20 @@ export const apiPut = (url, id, obj) => () =>
       }
       return r;
     });
+
+export const apiPost = (url, obj) => () =>
+  fetch(`${url}`, {
+    method: "POST",
+    body: JSON.stringify(obj),
+    headers: new Headers({ "Content-type": "application/json" }),
+  })
+    .then((v) => v.json())
+    .then((r) => {
+      if (r.error) {
+        const err = new Error();
+        err.error = r.error;
+        err.payload = r.validation;
+        return Promise.reject(err);
+      }
+      return r;
+    });
