@@ -5,6 +5,7 @@ import "./App.css";
 import HomeContainer from "./containers/HomeContainer";
 import CustomersContainer from "./containers/CustomersContainer";
 import CustomerContainer from "./containers/CustomerContainer";
+import NewCustomerContainer from "./containers/NewCustomerContainer";
 
 class App extends Component {
   renderHome = () => <HomeContainer />;
@@ -28,10 +29,7 @@ class App extends Component {
           <Route exact path="/customers" component={CustomersContainer} />
 
           <Switch>
-            <Route
-              path="/customers/new"
-              component={this.renderCustomerNewContainer}
-            />
+            <Route path="/customers/new" component={NewCustomerContainer} />
             {/*Cambiamos la forma de llamar al componente con el render 
           y le pasamos la propiedad: dni que la cogemos del servidor:
          props.match.params.dni*/}
