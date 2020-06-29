@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 //El Field es para generar diferentes acciones de forma automatica:
 import { reduxForm, Field } from "redux-form";
@@ -13,15 +13,6 @@ import { Prompt } from "react-router-dom";
 // -(meta.error)= Mensaje que se manda cuando el valor es vacio en isRequired.
 // -(meta.touched)= Primero tiene que a ver sido tocado por el usuario al menos una vez, para mostrar el mensaje:
 
-//Incluimos ahora para la mejora y para utilizarlo en el campo numerico el type porque si no no funcionaría,
-//quiero que cuando no encuentre el tipo asuma que es texto.
-const MyField = ({ input, meta, type, label, name }) => (
-  <div>
-    <label htmlFor={name}>{label} </label>
-    <input {...input} type={!type ? "text" : type} />
-    {meta.touched && meta.error && <span>{meta.error}</span>}
-  </div>
-);
 //Vammos a crear una función para asegurarnos de que lo que llega es un numero a nuestro campo:
 const isNumber = (value) => isNaN(Number(value)) && "Debe ser un numero";
 //Ponemos las validaciones (isRequired y isNumber) y el componente requerido (MyField):
@@ -56,63 +47,89 @@ const onlyGrow = (value, previousValue, values) =>
   (!previousValue ? value : value > previousValue ? value : previousValue);
 
 //Añadimos 2 funciones para el boton de aceptar que se las pasara el CustomerContainer.js:
-const CustomerEdit = ({
-  name,
-  dni,
-  age,
-  handleSubmit,
-  submitting,
-  onBack,
-  pristine,
-  submitSucceeded,
-}) => {
-  return (
-    //Le pasamos al form la acción por defecto reservada en redux-form handleSubmit
-    <div>
-      <h2>Edición del cliente</h2>
-      <form onSubmit={handleSubmit}>
-        <Field
-          name="name"
-          component={MyField}
-          type="text"
-          label="Nombre:"
-          parse={toUpper}
-          format={toLower}
-        ></Field>
+class CustomerEdit extends Component {
+  componentDidMount() {
+    if (this.txt) {
+      this.txt.focus();
+    }
+  }
 
-        <Field name="dni" component={MyField} type="text" label="DNI:"></Field>
-        <Field
-          name="age"
-          component={MyField}
-          type="number"
-          validate={isNumber}
-          label="Edad:"
-          parse={toNumber}
-          normalize={onlyGrow}
-        ></Field>
-        {/*LLamamos al CustomersActions resevado para los botones
-        Le pasamos el submit de los datos del JSON con la función submitting
-        tambien reservada en redux-form para esto */}
-        <CustomersActions>
-          {/**Desabilitamos el botón si no se ha realizado ningun cambio */}
-          <button type="submit" disabled={pristine || submitting}>
-            Aceptar
-          </button>
-          <button type="button" disabled={submitting} onClick={onBack}>
-            Cancelar
-          </button>
-        </CustomersActions>
-        {/**VALIDACION DEL BOTON CANCELAR: Utilización del componente Prompt que es parte de react-router-dom,
-         *  dentro de el la utilización del booleano (pristine) que es parte de redux-form.
-         * message= Mensaje de alerta que se mandará al darle a cancelar:  */}
-        <Prompt
-          when={!pristine && !submitSucceeded}
-          message="Se perderán los datos si continua"
-        ></Prompt>
-      </form>
+  //Incluimos ahora para la mejora y para utilizarlo en el campo numerico el type porque si no no funcionaría,
+  //quiero que cuando no encuentre el tipo asuma que es texto.
+  renderField = ({ input, meta, type, label, name, withFocus }) => (
+    <div>
+      <label htmlFor={name}>{label} </label>
+      <input
+        {...input}
+        type={!type ? "text" : type}
+        ref={withFocus && ((txt) => (this.txt = txt))}
+      />
+      {meta.touched && meta.error && <span>{meta.error}</span>}
     </div>
   );
-};
+
+  render() {
+    const {
+      handleSubmit,
+      submitting,
+      onBack,
+      pristine,
+      submitSucceeded,
+    } = this.props;
+    return (
+      //Le pasamos al form la acción por defecto reservada en redux-form handleSubmit
+      <div>
+        <h2>Edición del cliente</h2>
+        <form onSubmit={handleSubmit}>
+          <Field
+            withFocus
+            name="name"
+            component={this.renderField}
+            type="text"
+            label="Nombre:"
+            parse={toUpper}
+            format={toLower}
+          ></Field>
+
+          <Field
+            name="dni"
+            component={this.renderField}
+            type="text"
+            label="DNI:"
+          ></Field>
+          <Field
+            name="age"
+            component={this.renderField}
+            type="number"
+            validate={isNumber}
+            label="Edad:"
+            parse={toNumber}
+            normalize={onlyGrow}
+          ></Field>
+          {/*LLamamos al CustomersActions resevado para los botones
+        Le pasamos el submit de los datos del JSON con la función submitting
+        tambien reservada en redux-form para esto */}
+          <CustomersActions>
+            {/**Desabilitamos el botón si no se ha realizado ningun cambio */}
+            <button type="submit" disabled={pristine || submitting}>
+              Aceptar
+            </button>
+            <button type="button" disabled={submitting} onClick={onBack}>
+              Cancelar
+            </button>
+          </CustomersActions>
+          {/**VALIDACION DEL BOTON CANCELAR: Utilización del componente Prompt que es parte de react-router-dom,
+           *  dentro de el la utilización del booleano (pristine) que es parte de redux-form.
+           * message= Mensaje de alerta que se mandará al darle a cancelar:  */}
+          <Prompt
+            when={!pristine && !submitSucceeded}
+            message="Se perderán los datos si continua"
+          ></Prompt>
+        </form>
+      </div>
+    );
+  }
+}
 
 CustomerEdit.propTypes = {
   name: PropTypes.string,
