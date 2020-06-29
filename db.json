@@ -3,20 +3,26 @@
     {
       "id": "71462879q",
       "dni": "71462879q",
-      "name": "SONIA VIDAL GONZALEZ",
-      "age": 36
+      "name": "SONIA VIDAL",
+      "age": 28
     },
     {
-      "id": "78953647w",
+      "id": "78953090y",
       "dni": "78953647w",
-      "name": "Jose Gonzalez",
-      "age": 38
+      "name": "JOSE GONZALEZM",
+      "age": 15
     },
     {
       "id": "09876543e",
       "dni": "09876543e",
       "name": "Luis Martinez",
-      "age": 25
+      "age": 10
+    },
+    {
+      "id": "99999",
+      "dni": "33333",
+      "name": "prueba 2",
+      "age": 23
     }
   ],
   "posts": [
