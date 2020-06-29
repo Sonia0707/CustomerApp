@@ -23,6 +23,24 @@
       "dni": "33333",
       "name": "prueba 2",
       "age": 23
+    },
+    {
+      "id": "ksLam7Y",
+      "dni": "jkhihi990",
+      "name": "NUEVO CLIENTE",
+      "age": 5
+    },
+    {
+      "id": "YSKeVwh",
+      "dni": "71462879w",
+      "name": "NUEVO2",
+      "age": 8
+    },
+    {
+      "id": "-aTcvlY",
+      "dni": "44444",
+      "name": "NUEVO RAPIDO",
+      "age": 5
     }
   ],
   "posts": [
