@@ -9,6 +9,7 @@ import { withRouter, Route } from "react-router-dom";
 import { getCustomersByDni } from "../selectors/customers";
 import { fetchCustomers } from "./../actions/fetchCustomers";
 import { updateCustomers } from "./../actions/updateCustomers";
+import { SubmissionError } from "redux-form";
 
 class CustomerContainer extends Component {
   //Carga inicial de los datos: Validación para que no me aparezcan vacios los campos:
@@ -20,9 +21,16 @@ class CustomerContainer extends Component {
 
   //Creamos la función para pasarsela a CustomerEdit y poder modificar los datos:
   handleSubmit = (values) => {
-    console.log(JSON.stringify(values));
+    console.log(JSON.stringify(values, null, 2));
     const { id } = values;
-    return this.props.updateCustomers(id, values);
+    return this.props
+      .updateCustomers(id, values)
+      .then((v) => v)
+      .catch((err) => {
+        if (err.error) {
+          throw new SubmissionError(err.payload);
+        }
+      });
   };
   handleOnBack = () => {
     this.props.history.goBack();
