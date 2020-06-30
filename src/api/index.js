@@ -52,5 +52,5 @@ export const apiDelete = (url, id) => () =>
         err.payload = r.validation;
         return Promise.reject(err);
       }
-      return r;
+      return id;
     });
