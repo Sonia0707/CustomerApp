@@ -4,6 +4,7 @@ import {
   FETCH_CUSTOMERS,
   INSERT_CUSTOMER,
   UPDATE_CUSTOMER,
+  DELETE_CUSTOMER,
 } from "../constantes";
 
 //Generar constante que se iguala al resultado de  handleActions
@@ -32,6 +33,9 @@ export const customers = handleActions(
       }, initialValue);
       return newCustomers;
     },
+    //Agregamos el reducers de eliminar para cuando se elimine y volvamos a la lista, ya no este.
+    [DELETE_CUSTOMER]: (state, action) =>
+      state.filter((c) => c.id !== action.payload),
   },
   []
 );
