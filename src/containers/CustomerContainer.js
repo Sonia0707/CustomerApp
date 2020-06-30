@@ -42,10 +42,12 @@ class CustomerContainer extends Component {
     this.props.history.goBack();
   };
 
-  //Función para eliminar a los clientes:
-  handleOnDelete = () => {
+  //Función para eliminar a los clientes: Le pasamos el id del cliente a eliminar:
+  handleOnDelete = (id) => {
     console.log("la funcion de borrado");
-    this.props.deleteCustomers("09876543e");
+    this.props.deleteCustomers(id).then((v) => {
+      this.props.history.goBack();
+    });
   };
 
   //Construimos isEdit y isDelete para borrar o editar:
