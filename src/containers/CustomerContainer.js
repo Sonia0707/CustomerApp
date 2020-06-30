@@ -9,6 +9,8 @@ import { withRouter, Route } from "react-router-dom";
 import { getCustomersByDni } from "../selectors/customers";
 import { fetchCustomers } from "./../actions/fetchCustomers";
 import { updateCustomers } from "./../actions/updateCustomers";
+import { deleteCustomers } from "./../actions/deleteCustomers";
+
 import { SubmissionError } from "redux-form";
 
 class CustomerContainer extends Component {
@@ -40,27 +42,49 @@ class CustomerContainer extends Component {
     this.props.history.goBack();
   };
 
+  //Función para eliminar a los clientes:
+  handleOnDelete = () => {
+    console.log("la funcion de borrado");
+    this.props.deleteCustomers("09876543e");
+  };
+
+  //Construimos isEdit y isDelete para borrar o editar:
+  renderCustomerControl = (isEdit, isDelete) => {
+    if (this.props.customer) {
+      //Depende cual cliquemos: (CustomerControl)= Alias...
+      const CustomerControl = isEdit ? CustomerEdit : CustomerData;
+
+      //Cogemos todas las propiedades de los clientes haciendo un destrugturing (Spread Attributes) el como poner age={edad}, dni={dni}, name={name}
+      //Retormanamos un componente determinado que nos devuelve data o edit para no andar repitiendo las propiedades de nuevo (DRY)
+      return (
+        //Añadimos la función y depende si es data o edit:
+        //Añadimos las funciones de delete:
+        <CustomerControl
+          {...this.props.customer}
+          onSubmit={this.handleSubmit}
+          onSubmitSuccess={this.handleOnSubmitSuccess}
+          onBack={this.handleOnBack}
+          isDeleteAllow={!!isDelete}
+          onDelete={this.handleOnDelete}
+        />
+      );
+    }
+    return null;
+  };
+
   //Ejemplo de Route cambiamos el pinchar en Edition
   //Utilizamos propiedad children que se puede usar de maneras diferentes, su especialidad es mas en las animaciones:
   renderBody = () => (
     <Route
       path="/customers/:dni/edit"
-      children={({ match }) => {
-        //Depende cual cliquemos: (CustomerControl)= Alias...
-        const CustomerControl = match ? CustomerEdit : CustomerData;
-
-        //Cogemos todas las propiedades de los clientes haciendo un destrugturing (Spread Attributes) el como poner age={edad}, dni={dni}, name={name}
-        //Retormanamos un componente determinado que nos devuelve data o edit para no andar repitiendo las propiedades de nuevo (DRY)
-        return (
-          //Añadimos la función y depende si es data o edit:
-          <CustomerControl
-            {...this.props.customer}
-            onSubmit={this.handleSubmit}
-            onSubmitSuccess={this.handleOnSubmitSuccess}
-            onBack={this.handleOnBack}
-          />
-        );
-      }}
+      children={({ match: isEdit }) => (
+        <Route
+          path="/customers/:dni/del"
+          children={({ match: isDelete }) =>
+            this.renderCustomerControl(isEdit, isDelete)
+          }
+        />
+      )}
     />
   );
   //<p>Datos del cliente "{this.props.customer.name}"</p>
@@ -83,6 +107,7 @@ CustomerContainer.propTypes = {
   customer: PropTypes.object,
   fetchCustomers: PropTypes.func.isRequired,
   updateCustomers: PropTypes.func.isRequired,
+  deleteCustomers: PropTypes.func.isRequired,
 };
 //Creamos la funcion para pasarle todas las props de los cliente no solo el dni:(props) => todas las propiedades(pronto cambiaremos la forma X un selector)
 const mapStateToProps = (state, props) => ({
@@ -90,9 +115,11 @@ const mapStateToProps = (state, props) => ({
 });
 
 //Mas adelante cambiaremos lo de null:
+//Acción de delete para terminar:
 export default withRouter(
   connect(mapStateToProps, {
     fetchCustomers,
     updateCustomers,
+    deleteCustomers,
   })(CustomerContainer)
 );
