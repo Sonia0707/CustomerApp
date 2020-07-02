@@ -5,6 +5,8 @@ import { reduxForm, Field } from "redux-form";
 import { setPropsAsInitial } from "./../helpers/setPropsAsInitial";
 import CustomersActions from "./CustomersActions";
 import { Prompt } from "react-router-dom";
+import { accesControl } from "../helpers/accesControl";
+import { CUSTUMER_EDIT } from "../constantes/permissions";
 
 //Funcion con unico parametro, en base a ese resultado retornamos un único resultado: VAMOS A CREAR VALIDACIONES A NIVEL DE FIELD:
 //const isRequired = (value) => !value && "Este campo es requerido";
@@ -104,7 +106,6 @@ class CustomerEdit extends Component {
             validate={isNumber}
             label="Edad:"
             parse={toNumber}
-            normalize={onlyGrow}
           ></Field>
           {/*LLamamos al CustomersActions resevado para los botones
         Le pasamos el submit de los datos del JSON con la función submitting
@@ -149,4 +150,9 @@ const CustomersEditForm = reduxForm({
 })(CustomerEdit);
 
 //Borramos el connect y utilizamos nuestro Higher Order Component (decoreitor) que establece las propiedades iniciales:
-export default setPropsAsInitial(CustomersEditForm);
+
+//Vamos a introducir el reducers de permisos para que cada usuario tenga sus permisos =>
+// CUSTUMER_EDIT: permisos que requiere el componente para visualizarse:
+export default accesControl([CUSTUMER_EDIT])(
+  setPropsAsInitial(CustomersEditForm)
+);
