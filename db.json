@@ -4,19 +4,43 @@
       "id": "71462879q",
       "dni": "71462879q",
       "name": "SONIA VIDAL",
-      "age": 31
+      "age": 28,
+      "isDeleteAllow": false,
+      "user": {
+        "permissions": [
+          "CUSTUMER_LIST",
+          "CUSTUMER_VIEW",
+          "CUSTUMER_EDIT"
+        ]
+      }
     },
     {
       "id": "78953090y",
       "dni": "78953647w",
       "name": "JOSE ;)",
-      "age": 21
+      "age": 17,
+      "isDeleteAllow": false,
+      "user": {
+        "permissions": [
+          "CUSTUMER_LIST",
+          "CUSTUMER_VIEW",
+          "CUSTUMER_EDIT"
+        ]
+      }
     },
     {
       "id": "2ASyMiL",
       "dni": "71462879d",
       "name": "NUEVO RAPIDO 33",
-      "age": 6
+      "age": 24,
+      "isDeleteAllow": false,
+      "user": {
+        "permissions": [
+          "CUSTUMER_LIST",
+          "CUSTUMER_VIEW",
+          "CUSTUMER_EDIT"
+        ]
+      }
     }
   ],
   "posts": [
