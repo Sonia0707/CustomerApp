@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 //Quitamos el link y metemos el Route:
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
